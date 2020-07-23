@@ -38,7 +38,44 @@ func generator(buffer ...int) <-chan int {
 	}
 ```
 * Future \
-A Future will start a computation in parallel, and its results will be available in the future. In golang, a simple goroutine can be use to implement this funcionality, without no use of third party or even standard libraries. 
+A Future will start a parallel computation, and its results will be available in the future. In golang, a simple goroutine can be use to implement this funcionality, without use of third party or even standard libraries. 
+
+**Implementation**
+```go
+func fiboFuture(number int) <-chan int {
+	// Channel with the result
+	c := make(chan int)
+
+	// Starts a parallel process to calc fibonacci number
+	go func() {
+		if number <= 1 {
+			c <- number
+		}
+
+		fib := 1
+		prevFib := 1
+		for i := 0; i < number; i++ {
+			temp := fib
+			fib += prevFib
+			prevFib = temp
+		}
+		// Send the result to channel
+		c <- fib
+		// Close channel
+		close(c)
+	}()
+
+	return c
+}
+```
+
+**Use**
+```go
+	// Gets a future processing
+	future := fiboFuture(44)
+	// Prints the result of future. If still processing, instead, future will block
+	fmt.Println("result of future processing:", <-future)
+```
 
 * Fan-in/Fan-out \
 The best way to implement a processing pipeline in golang is using the fan in/out pattern. The pattern is built by a function and a goroutine
