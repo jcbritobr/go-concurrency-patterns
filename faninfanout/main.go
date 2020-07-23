@@ -33,7 +33,7 @@ func sq(buffer <-chan int) <-chan int {
 	return c
 }
 
-// merge merge all channels in one - fan in
+// merge merge all channels in one
 func merge(buffer ...<-chan int) <-chan int {
 	// create sync mechanism and an out channel
 	var wg sync.WaitGroup
@@ -74,7 +74,7 @@ func main() {
 	sq1 := sq(g)
 	sq2 := sq(g)
 
-	// consumn the parallel square pipeline
+	// consumn the parallel square pipeline - fan in
 	for item := range merge(sq1, sq2) {
 		fmt.Println(item)
 	}
