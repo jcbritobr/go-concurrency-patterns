@@ -87,4 +87,21 @@ See image below:
     <img src="faninfanout/images/faninfanout.png">
 </p>
 
+**Use**
+```go
+	// data to be processed
+	data := []int{1, 2, 3, 4, 5}
+	// generator loads data
+	g := generator(data...)
+
+	// fan-out the data in square pipeline
+	sq1 := sq(g)
+	sq2 := sq(g)
+
+	// consumn the parallel square pipeline - fan-in
+	for item := range merge(sq1, sq2) {
+		fmt.Println(item)
+	}
+```
+
 * Workers Pool
