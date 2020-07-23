@@ -1,8 +1,8 @@
 ## Golang Concurrent Patterns Examples
 This repository contains golang concurrent patterns implemented examples.
 
-*Generator
-
+* Generator \
+Generator pattern is a way to a generate data sequence using paralelism. Using this pattern we are able to make the consumer run in parallel with the generator.
 * Future
 
 * Fan-in/Fan-out \
