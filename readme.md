@@ -50,6 +50,7 @@ func fiboFuture(number int) <-chan int {
 	go func() {
 		if number <= 1 {
 			c <- number
+			return
 		}
 
 		fib := 1
