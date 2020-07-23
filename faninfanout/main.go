@@ -33,7 +33,7 @@ func sq(buffer <-chan int) <-chan int {
 	return c
 }
 
-// merge merge all channels in one
+// merge merge all channels in one - fan in
 func merge(buffer ...<-chan int) <-chan int {
 	// create sync mechanism and an out channel
 	var wg sync.WaitGroup
