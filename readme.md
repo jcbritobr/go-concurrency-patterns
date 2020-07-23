@@ -6,5 +6,6 @@ The best way to implement a processing pipeline in golang is using the fan in/ou
 that transports and load data, using channels, to another function and goroutine(pipeline). In the end o process, all the goroutines data are merged into one.
 See image below: 
 
-![alt](images/faninfanout.png)
+<div align="center">![alt](faninfanout/images/faninfanout.png)</div>
+
 - Workers Pool
