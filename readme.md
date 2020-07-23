@@ -83,6 +83,8 @@ The best way to implement a processing pipeline in golang is using the fan in/ou
 that transports and loads data, using channels, to another. In the end of process, all the goroutines data are merged into one. Its a way of multiplexing and demultiplexing multiple input data.
 See image below:
 
+**Implementation**
+
 <p align="center">
     <img src="faninfanout/images/faninfanout.png">
 </p>
@@ -103,5 +105,3 @@ See image below:
 		fmt.Println(item)
 	}
 ```
-
-* Workers Pool
