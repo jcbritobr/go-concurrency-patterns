@@ -1,9 +1,10 @@
 ## Golang Concurrent Patterns Examples
 This repository contains golang concurrent patterns implemented examples.
 
-* Generator \
+* Generator/Iterator \
 Generator pattern is a way to a generate data sequence using paralelism. Using this pattern we are able to make the consumer run in parallel with the generator.
 * Future
+A Future will start a computation in parallel, and its results will be available in the future. In golang, a simple goroutine can be use to implement this funcionality, without no use of third party or even standard libraries. 
 
 * Fan-in/Fan-out \
 The best way to implement a processing pipeline in golang is using the fan in/out pattern. The pattern is built by a function and a goroutine
