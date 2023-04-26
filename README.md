@@ -86,7 +86,7 @@ See image below:
 **Implementation**
 
 <p align="center">
-    <img src="faninfanout/images/faninfanout.png">
+    <img src="images/faninfanout.png">
 </p>
 
 **Use**
@@ -104,4 +104,73 @@ See image below:
 	for item := range merge(sq1, sq2) {
 		fmt.Println(item)
 	}
+```
+
+* WorkersPool \
+WorkersPool is a pattern that aims to control the number of goroutines available to a system or application. If we create a pool with 3 workers, than no more goroutines can be spawned to new tasks, and its tasks will be waiting to others finnish.
+
+**Implementation**
+
+<p align="center">
+    <img src="images/workerspool.png">
+</p>
+
+```go
+type ExecFunc func()
+
+type ThreadPool struct {
+	receiver chan ExecFunc
+	size     int
+}
+
+func NewThreadPool(size int) *ThreadPool {
+	pool := &ThreadPool{
+		receiver: make(chan ExecFunc),
+		size:     size,
+	}
+
+	return pool
+}
+
+func (t ThreadPool) start() {
+	for i := 0; i < t.size; i++ {
+		go func() {
+			for {
+				f := <-t.receiver
+				f()
+			}
+		}()
+	}
+}
+
+func (t *ThreadPool) Execute(f ExecFunc) {
+	t.receiver <- f
+}
+
+```
+
+**Use**
+```go
+pool := NewThreadPool(3)
+var wg sync.WaitGroup
+wg.Add(2)
+pool.start()
+
+job := func(id int) {
+	for i := 0; i < 1000; i++ {
+		println(id, "->", i)
+	}
+}
+
+pool.Execute(func() {
+	job(1)
+	wg.Done()
+})
+
+pool.Execute(func() {
+	job(2)
+	wg.Done()
+})
+
+wg.Wait()
 ```
